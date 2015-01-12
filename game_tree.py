@@ -35,13 +35,20 @@ class GameNode:
         elif self.right and not self.left and not self.middle:
             return self.right.num_leaves()
 
-first_node = GameNode(2)
-second_node = GameNode(1)
-third_node = GameNode(0)
-fourth_node = GameNode(0)
+def main():
+    first_node = GameNode(2)
+    second_node = GameNode(1)
+    third_node = GameNode(0)
+    fourth_node = GameNode(0)
 
-first_node.left = second_node
-first_node.middle = third_node
-second_node.left = fourth_node
+    first_node.left = second_node
+    first_node.middle = third_node
+    second_node.left = fourth_node
 
-print(first_node.num_leaves())
+    print(first_node.num_leaves())
+
+
+if __name__ == '__main__':
+    main()
+
+
