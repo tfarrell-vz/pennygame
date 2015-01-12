@@ -35,6 +35,32 @@ class GameNode:
         elif self.right and not self.left and not self.middle:
             return self.right.num_leaves()
 
+class GameTree:
+    def __init__(self, num_pennies):
+        self._root = self.make_node(num_pennies)
+        self._game_position = self._root
+        pass
+
+    def make_node(self, num_pennies):
+        if num_pennies >= 3:
+            node = GameNode(num_pennies, left=self.make_node(num_pennies-1), middle=self.make_node(num_pennies-2),
+                            right=self.make_node(num_pennies-3))
+            return node
+
+        if num_pennies == 2:
+            node = GameNode(num_pennies, left=self.make_node(num_pennies-1),
+                            middle=self.make_node(num_pennies-2))
+
+            return node
+
+        if num_pennies == 1:
+            node = GameNode(num_pennies, left=self.make_node(num_pennies-1))
+            return node
+
+        if num_pennies == 0:
+            node = GameNode(num_pennies)
+            return node
+
 def main():
     first_node = GameNode(2)
     second_node = GameNode(1)
@@ -47,6 +73,8 @@ def main():
 
     print(first_node.num_leaves())
 
+    tree = GameTree(5)
+    print(tree._root.num_pennies)
 
 if __name__ == '__main__':
     main()
