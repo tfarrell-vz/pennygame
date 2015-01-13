@@ -39,7 +39,6 @@ class GameTree:
     def __init__(self, num_pennies):
         self._root = self.make_node(num_pennies)
         self._game_position = self._root
-        pass
 
     def make_node(self, num_pennies):
         if num_pennies >= 3:
