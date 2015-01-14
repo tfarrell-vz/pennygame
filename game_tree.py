@@ -60,6 +60,28 @@ class GameTree:
             node = GameNode(num_pennies)
             return node
 
+    def ways_to_play(self):
+        """ Yields how many games are possible given the starting number of pennies."""
+        return self._root.num_leaves()
+
+    def remove_pennies(self, pennies):
+        if pennies > self._game_position.num_pennies:
+            print("Not enough pennies on the table.")
+
+        if 1 <= pennies <= 3:
+            if pennies == 1:
+                self._game_position = self._game_position.left
+
+            elif pennies == 2:
+                self._game_position = self._game_position.middle
+
+            elif pennies == 3:
+                self._game_position = self._game_position.right
+
+        else:
+            print("Illegal move, cheater.")
+
+
 def main():
     first_node = GameNode(2)
     second_node = GameNode(1)
@@ -70,10 +92,14 @@ def main():
     first_node.middle = third_node
     second_node.left = fourth_node
 
-    print(first_node.num_leaves())
+    print("Number of leaves for a game node of 2 pennies: ", first_node.num_leaves())
 
     tree = GameTree(5)
-    print(tree._root.num_pennies)
+    print("Initialize to 5 pennies. Number of pennies at the root: ", tree._root.num_pennies)
+    print("Ways to play the game", tree.ways_to_play(), "\n")
+    tree.remove_pennies(2)
+    print("Player 1 removed 2 pennies.")
+    print("Pennies on the table: ", tree._game_position.num_pennies)
 
 if __name__ == '__main__':
     main()
