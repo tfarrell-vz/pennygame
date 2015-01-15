@@ -129,7 +129,6 @@ def main():
     print("Number of ways to play: ", tree.ways_to_play())
 
     random.seed()
-    game_over = False
     victor = ""
 
     while tree.pennies_on_table() > 0:
