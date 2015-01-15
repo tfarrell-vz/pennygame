@@ -4,6 +4,10 @@ class GameNode:
         self.left, self.middle, self.right = left, middle, right
 
     def is_leaf(self):
+        """
+        Determines if a node is a leaf. A GameNode leaf is one that has 0 pennies. It also shouldn't be connecting
+        to any other nodes, as the edges represent removal of pennies. 
+        """
         if self.num_pennies == 0:
             return True
 
@@ -11,6 +15,9 @@ class GameNode:
             return False
 
     def num_leaves(self):
+        """
+        Yields the number of leaves by recursively adding their count.
+        """
         if self.is_leaf():
             return 1
 
@@ -41,6 +48,9 @@ class GameTree:
         self._game_position = self._root
 
     def make_node(self, num_pennies):
+        """
+        Returns the first node, the root of the tree, after having created the entire tree recursively.
+        """
         if num_pennies >= 3:
             node = GameNode(num_pennies, left=self.make_node(num_pennies-1), middle=self.make_node(num_pennies-2),
                             right=self.make_node(num_pennies-3))
@@ -60,12 +70,24 @@ class GameTree:
             node = GameNode(num_pennies)
             return node
 
+    def pennies_on_table(self):
+        """
+        Retrieves the current number of pennies on the table.
+        """
+        return self._game_position.num_pennies
+
     def ways_to_play(self):
         """ Yields how many games are possible given the starting number of pennies."""
         return self._root.num_leaves()
 
     def remove_pennies(self, pennies):
-        if pennies > self._game_position.num_pennies:
+        """
+        Removes pennies from the table by moving the game position down the tree in the appropriate fashion.
+        Left move is removing 1 penny.
+        Middle move is removing 2 pennies.
+        Right move is removing 3 pennies.
+        """
+        if pennies > self.pennies_on_table():
             print("Not enough pennies on the table.")
 
         if 1 <= pennies <= 3:
@@ -82,6 +104,9 @@ class GameTree:
             print("Illegal move, cheater.")
 
 def get_pennies():
+    """
+    Obtains a number of pennies from the user to build the game tree.
+    """
     accepted = False
     while not accepted:
         try:
@@ -95,12 +120,18 @@ def get_pennies():
             print("You need to choose 5 or more pennies to play.\n")
     return pennies
 
-
 def main():
     print("Welcome to the Penny Game!")
     pennies = get_pennies()
     tree = GameTree(pennies)
     print("Number of ways to play: ", tree.ways_to_play())
+
+    while tree.pennies_on_table() >= 0:
+        # Computer makes a move.
+        # Check if game is over.
+        # Human makes a move.
+        # Check if game is over.
+
 
 
 if __name__ == '__main__':
