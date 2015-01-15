@@ -81,25 +81,27 @@ class GameTree:
         else:
             print("Illegal move, cheater.")
 
+def get_pennies():
+    accepted = False
+    while not accepted:
+        try:
+            pennies = int(input(">> Enter the number of pennies to start the game (>=5): "))
+        except ValueError:
+            print("That wasn't a number, try again.\n")
+
+        if pennies >= 5:
+            accepted = True
+        else:
+            print("You need to choose 5 or more pennies to play.\n")
+    return pennies
+
 
 def main():
-    first_node = GameNode(2)
-    second_node = GameNode(1)
-    third_node = GameNode(0)
-    fourth_node = GameNode(0)
+    print("Welcome to the Penny Game!")
+    pennies = get_pennies()
+    tree = GameTree(pennies)
+    print("Number of ways to play: ", tree.ways_to_play())
 
-    first_node.left = second_node
-    first_node.middle = third_node
-    second_node.left = fourth_node
-
-    print("Number of leaves for a game node of 2 pennies: ", first_node.num_leaves())
-
-    tree = GameTree(5)
-    print("Initialize to 5 pennies. Number of pennies at the root: ", tree._root.num_pennies)
-    print("Ways to play the game", tree.ways_to_play(), "\n")
-    tree.remove_pennies(2)
-    print("Player 1 removed 2 pennies.")
-    print("Pennies on the table: ", tree._game_position.num_pennies)
 
 if __name__ == '__main__':
     main()
