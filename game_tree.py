@@ -1,3 +1,5 @@
+import random
+
 class GameNode:
     def __init__(self, num_pennies, left=None, middle=None, right=None):
         self.num_pennies = num_pennies
@@ -6,7 +8,7 @@ class GameNode:
     def is_leaf(self):
         """
         Determines if a node is a leaf. A GameNode leaf is one that has 0 pennies. It also shouldn't be connecting
-        to any other nodes, as the edges represent removal of pennies. 
+        to any other nodes, as the edges represent removal of pennies.
         """
         if self.num_pennies == 0:
             return True
@@ -126,11 +128,50 @@ def main():
     tree = GameTree(pennies)
     print("Number of ways to play: ", tree.ways_to_play())
 
-    while tree.pennies_on_table() >= 0:
+    random.seed()
+    game_over = False
+    victor = ""
+
+    while tree.pennies_on_table() > 0:
+        # Announce pennies on table.
         # Computer makes a move.
         # Check if game is over.
         # Human makes a move.
         # Check if game is over.
+
+        pennies_on_table = tree.pennies_on_table()
+        print("Number of pennies on the table: ", pennies_on_table)
+        if pennies_on_table >= 3:
+            computer_move = random.randrange(1, 4)
+
+        else:
+            computer_move = random.randrange(1, pennies_on_table+1)
+
+        print("Computer removes %s pennies" % computer_move)
+        tree.remove_pennies(computer_move)
+
+        if tree.pennies_on_table() == 0:
+            victor = "Human"
+            break
+
+        print("Number of pennies on the table: ", tree.pennies_on_table())
+
+        while True:
+            try:
+                human_move = int(input(">> How many pennies will you remove?: "))
+                if 1 <= human_move <= 3 and human_move <= tree.pennies_on_table():
+                    tree.remove_pennies(human_move)
+                    break
+                else:
+                    "Be careful! Try again . . ."
+            except ValueError:
+                print("Invalid number of pennies.")
+        if tree.pennies_on_table() == 0:
+            victor = "Computer"
+            break
+
+    print("\nThe winner is: %s" % victor)
+
 
 
 
