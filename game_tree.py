@@ -162,7 +162,7 @@ def main():
                     tree.remove_pennies(human_move)
                     break
                 else:
-                    "Be careful! Try again . . ."
+                    print("Be careful! Try again . . .")
             except ValueError:
                 print("Invalid number of pennies.")
         if tree.pennies_on_table() == 0:
