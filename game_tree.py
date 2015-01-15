@@ -169,7 +169,14 @@ def main():
             victor = "Computer"
             break
 
-    print("\nThe winner is: %s" % victor)
+    if victor == "Human":
+        print("\nCongratulations, you won!")
+
+    elif victor == "Computer":
+        print("\nYOU LOST! All hail The Computer")
+
+    else:
+        print("Game indeterminate due to programmer error.")
 
 
 
