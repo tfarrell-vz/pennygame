@@ -184,14 +184,21 @@ def main():
                     tree.remove_pennies(human_move)
                     break
                 else:
-                    "Be careful! Try again . . ."
+                    print("Be careful! Try again . . .")
             except ValueError:
                 print("Invalid number of pennies.")
         if tree.pennies_on_table() == 0:
             victor = "Computer"
             break
 
-    print("\nThe winner is: %s" % victor)
+    if victor == "Human":
+        print("\nCongratulations, you won!")
+
+    elif victor == "Computer":
+        print("\nYOU LOST! All hail The Computer")
+
+    else:
+        print("Game indeterminate due to programmer error.")
 
 
 
