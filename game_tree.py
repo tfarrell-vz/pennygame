@@ -122,11 +122,37 @@ def get_pennies():
             print("You need to choose 5 or more pennies to play.\n")
     return pennies
 
+def computer_move(mode, pennies):
+    if mode == 'expert':
+        if pennies >= 5:
+            return random.randrange(1, 4)
+
+        elif pennies == 4:
+            return 3
+
+        elif pennies == 3:
+            return 2
+
+        elif pennies == 2:
+            return 1
+
+        else:
+            return 1
+
+    else:
+        if pennies >= 4:
+            return random.randrange(1, 4)
+
+        else:
+            return random.randrange(1, pennies+1)
+
+
 def main():
     print("Welcome to the Penny Game!")
     pennies = get_pennies()
     tree = GameTree(pennies)
     print("Number of ways to play: ", tree.ways_to_play())
+    mode = input(">> Select normal or expert: ")
 
     random.seed()
     victor = ""
@@ -140,14 +166,10 @@ def main():
 
         pennies_on_table = tree.pennies_on_table()
         print("Number of pennies on the table: ", pennies_on_table)
-        if pennies_on_table >= 3:
-            computer_move = random.randrange(1, 4)
 
-        else:
-            computer_move = random.randrange(1, pennies_on_table+1)
-
-        print("Computer removes %s pennies" % computer_move)
-        tree.remove_pennies(computer_move)
+        computer = computer_move(mode, pennies_on_table)
+        print("Computer removes %s pennies" % computer)
+        tree.remove_pennies(computer)
 
         if tree.pennies_on_table() == 0:
             victor = "Human"
