@@ -132,11 +132,8 @@ def computer_move(mode, pennies):
                  7: 2,
                  8: 3
     }
-    if mode == 'expert' and pennies > 8:
-        return random.randrange(1,4)
-
-    elif mode == 'expert':
-        return move_list[pennies]
+    if mode == 'expert':
+        return move_list.get(pennies, random.randrange(1,4))
 
     else:
         if pennies >= 4:
