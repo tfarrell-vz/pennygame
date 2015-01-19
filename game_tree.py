@@ -123,6 +123,9 @@ def get_pennies():
     return pennies
 
 def computer_move(mode, pennies):
+    """
+    Determines the computers move for its turn. Expert mode is designed to maximize its chances of winning.
+    """
     move_list = {1: 1,
                  2: 1,
                  3: 2,
@@ -161,7 +164,7 @@ def main():
         # Check if game is over.
 
         pennies_on_table = tree.pennies_on_table()
-        print("Number of pennies on the table: ", pennies_on_table)
+        print("\nNumber of pennies on the table: ", pennies_on_table)
 
         computer = computer_move(mode, pennies_on_table)
         print("Computer removes %s pennies" % computer)
@@ -171,7 +174,7 @@ def main():
             victor = "Human"
             break
 
-        print("Number of pennies on the table: ", tree.pennies_on_table())
+        print("\nNumber of pennies on the table: ", tree.pennies_on_table())
 
         while True:
             try:
@@ -188,10 +191,10 @@ def main():
             break
 
     if victor == "Human":
-        print("\nCongratulations, you won!")
+        print("\nCongratulations, you won!\n")
 
     elif victor == "Computer":
-        print("\nYOU LOST! All hail The Computer")
+        print("\nYOU LOST! All hail The Computer\n")
 
     else:
         print("Game indeterminate due to programmer error.")
