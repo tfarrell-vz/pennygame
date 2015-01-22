@@ -199,6 +199,14 @@ def main():
     else:
         print("Game indeterminate due to programmer error.")
 
+    play_again = input(">> Would you like to play again? (y/n): ")
+
+    if "y" in play_again or "Y" in play_again:
+        main()
+
+    else:
+        print("Thanks for playing!")
+
 
 
 
